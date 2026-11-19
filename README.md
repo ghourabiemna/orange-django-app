@@ -2,7 +2,7 @@
 
 A web application built with **Django** to manage, search, visualize and reserve network interfaces.
 
-##  Project Overview
+## 📌 Project Overview
 
 Orange is a Django-based web application designed to simplify network interface resource management. It allows users to consult interface information, filter network resources and manage interface reservations.
 
@@ -27,8 +27,9 @@ Orange is a Django-based web application designed to simplify network interface 
 | Pandas | Excel data processing |
 | WhiteNoise | Static file serving |
 
-##  Project Structure
+## 📂 Project Structure
 
+```text
 orange/
 │
 ├── manage.py
@@ -53,56 +54,72 @@ orange/
 │   └── static/
 │
 └── mystaticfiles/
-
+```
 
 ##  Installation and Setup
 
 ### 1. Clone the repository
 
+```bash
 git clone https://github.com/YOUR_USERNAME/orange-django-app.git
+```
 
 ### 2. Navigate to the project directory
 
+```bash
 cd orange-django-app
+```
 
 ### 3. Create a virtual environment
 
+```bash
 python -m venv venv
+```
 
 Activate it on Windows:
 
+```bash
 venv\Scripts\activate
-
+```
 
 ### 4. Install dependencies
 
+```bash
 pip install -r requirements.txt
 pip install python-dotenv
+```
 
 ### 5. Configure environment variables
 
-Create a .env file in the same directory as manage.py.
+Create a `.env` file in the same directory as `manage.py`.
 
 Add the following variables:
 
+```env
 DJANGO_SECRET_KEY=your-secret-key
 DJANGO_DEBUG=True
 DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+```
 
-Generate a new Django secret key for your local environment. Never publish your real .env file.
+Generate a new Django secret key for your local environment. Never publish your real `.env` file.
 
 ### 6. Apply database migrations
 
+```bash
 python manage.py migrate
+```
 
 ### 7. Create an administrator account (optional)
 
-
+```bash
 python manage.py createsuperuser
+```
 
 ### 8. Run the development server
 
+```bash
 python manage.py runserver
+```
 
 Open your browser:
 
@@ -144,8 +161,8 @@ Sensitive information must never be committed to the public repository.
 
 The following files and directories should remain excluded:
 
-- .env
-- db.sqlite3
+- `.env`
+- `db.sqlite3`
 - Database backups
 - Secret keys and passwords
 - Generated production files
@@ -153,12 +170,12 @@ The following files and directories should remain excluded:
 
 For production deployment:
 
-- Set DJANGO_DEBUG=False.
-- Configure ALLOWED_HOSTS.
+- Set `DJANGO_DEBUG=False`.
+- Configure `ALLOWED_HOSTS`.
 - Store secrets in environment variables.
 - Use a properly configured production database.
 
-##  Author
+## 👩‍💻 Author
 
 Developed as a Django project for network interface resource management.
 
