@@ -1,0 +1,140 @@
+
+{% extends "base.html" %}
+{% block title %}
+  Interface Resource
+{% endblock %}
+
+{% block content %}
+    <section id="search-section" style="padding: 20px;">
+      <form method="get" class="search-form">
+        <div>
+          <input type="text" name="ip" class="search-input" placeholder="IP address" value="{{ search_ip }}">
+        </div>
+        <div >
+          <input type="text" name="desc" class="search-input" placeholder="Description" value="{{ search_desc }}">
+        </div>
+        <div >
+          <input type="text" name="rou" class=" search-input" placeholder="router" value="{{ search_rou }}">
+        </div>
+        <div>
+          <input type="text" name="ad" class=" search-input" placeholder="Admin Status" value="{{ search_ad }}">
+        </div>
+        <br>
+        <span class="search-icon">🔍</span>
+        <br>
+        <br>
+        <div class="btn-search">
+          <button class="btn btn-search ">
+          Search
+          </button>
+        </div>
+        
+      </form>
+    </section> 
+
+
+    <div class="dark-table-box"">
+      <table border="1" class="table table-dark table-hover align-middle">
+        <tr>
+          <th>Interface Name</th>
+          <th>Description</th>
+          <th>NE Name</th>
+          <th>IPv4 Address</th>
+          <th>Subnet Mask</th>
+          <th>MAC Address</th>
+          <th>Rate</th>
+          <th>Admin Status</th>
+          <th>IPv4 Status</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for row in page_obj %}
+            <tr>
+              <td>{{ row.interface_name }}</td>
+              <td >{{ row.description }}</td>
+              <td>{{ row.ne_name }}</td>
+              <td>{{ row.ipv4_address }}</td>
+              <td>{{ row.subnet_mask }}</td>
+              <td>{{ row.mac_address }}</td>
+              <td>{{ row.rate }}</td>
+              <td>{{ row.admin_status }}</td>
+              <td>{{ row.ipv4_status }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="9" class="text-center">No data available</td></tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+  <!-- Results info -->
+      <div>
+          Results: {{ page_obj.start_index }} – {{ page_obj.end_index }} of {{ total_count }}
+      </div>
+
+  <!-- Per page dropdown -->
+      <form method="get" class="d-flex align-items-center">
+          <input type="hidden" name="ip" value="{{ request.GET.ip }}">
+          <input type="hidden" name="desc" value="{{ request.GET.desc }}">
+          <input type="hidden" name="rou" value="{{ request.GET.rou }}">
+  
+          <select name="per_page" class="form-select form-select-sm me-2" onchange="this.form.submit()">
+            {% for size in per_page_sizes %}
+            <option value="{{ size }}" {% if per_page == size %}selected{% endif %}>{{ size }}</option>
+            {% endfor %}
+          </select>
+  
+          <input type="hidden" name="page" value="{{ page_obj.number }}">
+      </form>
+    </div>
+
+
+<!-- Page numbers -->
+    <nav class="mt-2">
+        <ul class="pagination justify-content-center">
+    <!-- Previous button -->
+          <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+            {% if page_obj.has_previous %}
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}&per_page={{ per_page }}&ip={{ request.GET.ip }}&desc={{ request.GET.desc }}&rou={{ request.GET.rou }}">Previous</a>
+            {% else %}
+              <span class="page-link">Previous</span>
+            {% endif %}
+          </li>
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}&per_page={{ per_page }}&ip={{ request.GET.ip }}&desc={{ request.GET.desc }}&rou={{ request.GET.rou }}">{{ num }}</a></li>
+            {% elif num == 1 %}
+              <li class="page-item"><a class="page-link" href="?page=1&per_page={{ per_page }}&ip={{ request.GET.ip }}&desc={{ request.GET.desc }}&rou={{ request.GET.rou }}">1</a></li>
+              {% if page_obj.number > 4 %}
+                <li class="page-item disabled"><span class="page-link">…</span></li>
+              {% endif %}
+            {% elif num == page_obj.paginator.num_pages %}
+              {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                <li class="page-item disabled"><span class="page-link">…</span></li>
+              {% endif %}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}&per_page={{ per_page }}&ip={{ request.GET.ip }}&desc={{ request.GET.desc }}&rou={{ request.GET.rou }}">{{ num }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+    <!-- Next button -->
+          <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+            {% if page_obj.has_next %}
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}&per_page={{ per_page }}&ip={{ request.GET.ip }}&desc={{ request.GET.desc }}&rou={{ request.GET.rou }}">Next</a>
+            {% else %}
+              <span class="page-link">Next</span>
+            {% endif %}
+          </li>
+        </ul>
+    </nav>
+</section>
+
+{% endblock %}
+
+
+
+

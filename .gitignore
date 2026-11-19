@@ -1,0 +1,36 @@
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Database
+db.sqlite3
+*.sqlite3
+*.db
+*.sql
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+
+# Django generated files
+productionfiles/
+staticfiles/
+
+# User uploads
+media/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

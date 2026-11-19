@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+{% block title %}
+  Reservation porte
+{% endblock %}
+
+
+{% block content %}
+<section>
+  <div class="form-wrapper">
+    <div class="container" style="padding: 20px ; margin-top: 20px;">
+      <div style="background-color: #e65c00; color: black; display: inline-block; margin-bottom: 20px; padding: 10px 15px; border-radius: 15px; font-weight: bold; font-size: 18px; margin-top: -10px;">Reservation port:</div>  
+        <form action="" method="POST">{% csrf_token %}
+            <div class="form-group">
+              <label>Interface name :</label>
+              <input id="Interface Name" type="text" name="Inter" placeholder="interface name">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="Description" type="text" name="Des" placeholder="Description"></textarea>
+            </div>
+            <div class="form-group"> 
+              <label>NE Name :</label>
+              <input id="NE Name" type="text" name="NE" placeholder="NE Name" >
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="form-actions">Add</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</section>
+
+<section>
+<div class="dark-table-box"">
+      <table border="1" class="table table-dark table-hover align-middle">
+        <tr>
+          <th>Interface Name</th>
+          <th>Description</th>
+          <th>NE Name</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for row in data1 %}
+            <tr>
+              <td>{{ row.interface_name1 }}</td>
+              <td >{{ row.description1 }}</td>
+              <td>{{ row.ne_name1 }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="9" class="text-center">No data available</td></tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+</section>
+
+
+
+
+  {% endblock %}
